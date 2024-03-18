@@ -1,6 +1,5 @@
 registry?=exposr
-node_version=20.11.0
-alpine_version=3.19
+node_version=20.12.2
 platforms?=linux/amd64,linux/arm64
 
 project:=exposrd
@@ -56,7 +55,6 @@ dist.clean:
 builder.build:
 	docker build \
 		--build-arg NODE_VERSION=${node_version} \
-		--build-arg ALPINE_VERSION=${alpine_version} \
 		-t $(project)-builder --target builder .
 
 # Docker image build targets
@@ -65,7 +63,6 @@ image.build:
 		-f Dockerfile \
 		--progress plain \
 		--build-arg NODE_VERSION=${node_version} \
-		--build-arg ALPINE_VERSION=${alpine_version} \
 		--build-arg VERSION=${version} \
 		--build-arg DIST_SRC=dist/exposrd-$(version).tgz \
 		--label "org.opencontainers.image.source=https://github.com/exposr/exposrd" \
@@ -90,7 +87,6 @@ image.xbuild:
 		--platform $(platforms) \
 		$(push_flag) \
 		--build-arg NODE_VERSION=${node_version} \
-		--build-arg ALPINE_VERSION=${alpine_version} \
 		--build-arg VERSION=${version} \
 		--build-arg DIST_SRC=dist/exposrd-$(version).tgz \
 		--label "org.opencontainers.image.source=https://github.com/exposr/exposrd" \
