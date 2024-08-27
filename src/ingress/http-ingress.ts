@@ -232,6 +232,7 @@ export default class HttpIngress implements IngressBase {
         } else {
             headers[HTTP_HEADER_EXPOSR_VIA] = Node.identifier;
         }
+        headers["exposr-tunnel"] = tunnel.id;
 
         if (TunnelConnectionManager.isLocalConnected(<string>tunnel.id)) {
             // Delete connection header if tunnel is
